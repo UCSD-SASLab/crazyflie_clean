@@ -8,6 +8,7 @@
   <arg name="merged_control_topic" default="/control/merged" />
   <arg name="takeoff_control_topic" default="/control/takeoff" />
   <arg name="final_control_topic" default="/control/final" />
+  <arg name="disturbance_topic" default="/disturbance" />
   <arg name="in_flight_topic" default="/in_flight" />
 
   <!-- Frames of reference. -->
@@ -61,6 +62,7 @@
     <param name="frames/robot" value="$(arg robot_frame)" />
 
     <param name="topics/control" value="$(arg final_control_topic)" />
+    <param name="topics/disturbance" value="$(arg disturbance_topic)" />
   </node>
 
   <!-- State estimator. -->

@@ -52,7 +52,7 @@ bool NearHoverSimulatorCoupled7D::Initialize(const ros::NodeHandle& n) {
   // Set state and control to zero initially.
   x_ = VectorXd::Zero(7);
   u_ = VectorXd::Zero(4);
-  d_ = VectorXd::Zero(3);
+  d_ = VectorXd::Zero(7);
   //  u_(3) = crazyflie_utils::constants::G;
 
   if (!LoadParameters(n)) {
@@ -85,7 +85,7 @@ bool NearHoverSimulatorCoupled7D::LoadParameters(const ros::NodeHandle& n) {
 
   // Control topic.
   if (!nl.getParam("topics/control", control_topic_)) return false;
-  // if (!nl.getParam("topics/disturbance", disturbance_topic_)) return false;
+  if (!nl.getParam("topics/disturbance", disturbance_topic_)) return false;
 
   // Get initial position.
   double init_x, init_y, init_z;
@@ -186,11 +186,15 @@ void NearHoverSimulatorCoupled7D::ControlCallback(
   received_control_ = true;
 }
 
-// void NearHoverSimulatorCoupled7D::DisturbanceCallback(
-//   const crazyflie_msgs::DisturbanceStamped::ConstPtr& msg) {
-//   d_(0) = msg->disturbance.x;
-//   d_(1) = msg->disturbance.y;
-//   d_(2) = msg->disturbance.z;
-// }
+void NearHoverSimulatorCoupled7D::DisturbanceCallback(
+  const crazyflie_msgs::DisturbanceStamped::ConstPtr& msg) {
+  d_(0) = msg->disturbance.x;
+  d_(1) = msg->disturbance.y;
+  d_(2) = msg->disturbance.z;
+  d_(3) = msg->disturbance.x_dot;
+  d_(4) = msg->disturbance.y_dot;
+  d_(5) = msg->disturbance.z_dot;
+  d_(6) = msg->disturbance.yaw;
+}
 
 } //\namespace crazyflie_simulator

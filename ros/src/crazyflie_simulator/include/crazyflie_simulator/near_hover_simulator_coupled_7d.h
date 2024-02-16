@@ -76,7 +76,7 @@ private:
   void ControlCallback(const crazyflie_msgs::ControlStamped::ConstPtr& msg);
   
   // Update disturbance signal.
-  // void DisturbanceCallback(const crazyflie_msgs::DisturbanceStamped::ConstPtr& msg);
+  void DisturbanceCallback(const crazyflie_msgs::DisturbanceStamped::ConstPtr& msg);
   
   // Current state and control.
   VectorXd x_;
@@ -99,8 +99,8 @@ private:
   ros::Subscriber control_sub_;
   std::string control_topic_;
 
-  // ros::Subscriber disturbance_sub_;
-  // std::string disturbance_topic_;
+  ros::Subscriber disturbance_sub_;
+  std::string disturbance_topic_;
 
   // Frames of reference.
   std::string fixed_frame_id_;
