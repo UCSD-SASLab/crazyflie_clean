@@ -71,6 +71,16 @@ bool PositionVelocityYawStateLiftLqr::LoadParameters(const ros::NodeHandle& n) {
   if (!nl.getParam("integrator/k/z", integrator_k_(2)))
     integrator_k_(2) = 0.0;
 
+  // Saturation constants
+  if (!nl.getParam("control/max_thrust", max_thrust_))
+    max_thrust_ = 15.0;
+  if (!nl.getParam("control/min_thrust", min_thrust_))
+    min_thrust_ = 4.0;
+  if (!nl.getParam("control/max_roll", max_roll_))
+    max_roll_ = 0.1;
+  if (!nl.getParam("control/max_pitch", max_roll_))
+    max_pitch_ = 0.1;  
+
   return true;
 }
 
@@ -160,9 +170,9 @@ void PositionVelocityYawStateLiftLqr::StateCallback(
   //  u(1) = crazyflie_utils::angles::WrapAngleRadians(u(1));
 
   // HACK! These thresholds should not be hard coded!
-  u(0) = std::max(std::min(u(0), 0.1), -0.1);
-  u(1) = std::max(std::min(u(1), 0.1), -0.1);
-  u(3) = std::max(std::min(u(3), 15.0), 4.0);
+  u(0) = std::max(std::min(u(0), max_roll_), -max_roll_);
+  u(1) = std::max(std::min(u(1), max_pitch_), -max_pitch_);
+  u(3) = std::max(std::min(u(3), max_thrust_), min_thrust_);
 
   // Publish.
   crazyflie_msgs::ControlStamped control_msg;

@@ -83,6 +83,12 @@ private:
   Vector3d x_int_;
   Vector3d x_int_thresh_;
   Vector3d integrator_k_;
+
+  // Max control input
+  double max_thrust_;
+  double min_thrust_;
+  double max_roll_;
+  double max_pitch_;
 }; //\class PositionVelocityYawStateLiftLqr
 
 } //\namespace crazyflie_lqr

@@ -26,8 +26,6 @@
   <arg name="takeoff_thrust" default="13.0" if="$(eval robot_number == 1)" />
   <arg name="takeoff_thrust" default="12.0" if="$(eval robot_number == 2)" />
   <arg name="takeoff_thrust" default="11.5" if="$(eval robot_number == 3)" />
-  <!-- Takeoff duration and values -->  
-  
   <arg name="takeoff_duration" default="1.5" />
   <arg name="landing_duration" default="3.0" />
 
@@ -40,9 +38,13 @@
   <arg name="sim_init_z" default="0.0" />
 
 
-  <!-- Control parameters. -->
+  <!-- LQR Control parameters. -->
   <arg name="K_file" default="$(find crazyflie_lqr)/references/K.txt"/>
   <arg name="u_ref_file" value="$(find crazyflie_lqr)/references/uref$(arg robot_number).txt"/>
+  <arg name="max_thrust" default="15.0" />
+  <arg name="min_thrust" default="4.0" />
+  <arg name="max_roll" default="0.1" />
+  <arg name="max_pitch" default="0.1" />
 
   <!-- Time steps.changed to 0.001 --> 
   <arg name="simulator_dt" default="0.001" />
@@ -146,6 +148,10 @@
 
     <param name="K_file" value="$(arg K_file)" />
     <param name="u_ref_file" value="$(arg u_ref_file)" />
+    <param name="control/max_thrust" value="$(arg max_thrust)" />
+    <param name="control/min_thrust" value="$(arg min_thrust)" />
+    <param name="control/max_roll" value="$(arg max_roll)" />
+    <param name="control/max_pitch" value="$(arg max_pitch)" />
 
     <param name="topics/reference" value="$(arg reference_topic)" />
     <param name="topics/state" value="$(arg state_topic)" />
