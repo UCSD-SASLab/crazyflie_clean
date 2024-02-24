@@ -78,7 +78,7 @@ bool PositionVelocityYawStateLiftLqr::LoadParameters(const ros::NodeHandle& n) {
     min_thrust_ = 4.0;
   if (!nl.getParam("control/max_roll", max_roll_))
     max_roll_ = 0.1;
-  if (!nl.getParam("control/max_pitch", max_roll_))
+  if (!nl.getParam("control/max_pitch", max_pitch_))
     max_pitch_ = 0.1;  
 
   return true;
