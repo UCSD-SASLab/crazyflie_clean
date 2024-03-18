@@ -60,6 +60,9 @@ void PositionVelocityYawStateEstimator::Update(const Vector3d& translation,
                                                const ros::Time& stamp) {
   // Catch first update.
   if (first_update_) {
+    x_offset_(0) = translation(0);
+    x_offset_(1) = translation(1);
+    x_offset_(2) = translation(2);
     x_(0) = translation(0);
     x_(1) = translation(1);
     x_(2) = translation(2);
@@ -95,9 +98,9 @@ void PositionVelocityYawStateEstimator::Update(const Vector3d& translation,
   msg.header.frame_id = fixed_frame_id_;
   msg.header.stamp = stamp;
 
-  msg.state.x = x_(0);
-  msg.state.y = x_(1);
-  msg.state.z = x_(2);
+  msg.state.x = x_(0) - x_offset_(0);
+  msg.state.y = x_(1) - x_offset_(1);
+  msg.state.z = x_(2) - x_offset_(2);
   msg.state.x_dot = x_(3);
   msg.state.y_dot = x_(4);
   msg.state.z_dot = x_(5);

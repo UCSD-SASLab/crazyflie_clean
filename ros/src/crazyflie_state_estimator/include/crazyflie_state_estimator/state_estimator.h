@@ -86,6 +86,7 @@ protected:
   // Running state estimate.
   VectorXd x_;
   size_t x_dim_;
+  VectorXd x_offset_;
 
   // State publisher.
   ros::Publisher state_pub_;

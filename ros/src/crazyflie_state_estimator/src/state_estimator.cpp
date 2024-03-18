@@ -63,6 +63,7 @@ bool StateEstimator::Initialize(const ros::NodeHandle& n) {
 
   // Initialize state vector to zero.
   x_ = VectorXd::Zero(x_dim_);
+  x_offset_ = VectorXd::Zero(x_dim_);
 
   // Timer.
   ros::NodeHandle nl(n);
